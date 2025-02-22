@@ -37,3 +37,17 @@ class UserRegistrationForm(UserCreationForm):
             raise forms.ValidationError("This email already exists!")
 
         return email
+
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(max_length=50, required=True)
+    password = forms.CharField(
+        max_length=16, widget=forms.PasswordInput(), required=True
+    )
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+
+        if not User.objects.filter(username=username).exists():
+            raise forms.ValidationError("The username does not exist.")
+        return username
