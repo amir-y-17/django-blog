@@ -1,4 +1,6 @@
-<h1>Login</h1>  
+{% load static %}
+
+{% comment %} <h1>Login</h1>  
 
 <!-- نمایش پیام‌های ارسال شده از جنگو -->  
 {% if messages %}  
@@ -22,4 +24,107 @@
     {% endfor %}  
 
     <button type="submit">Login</button>  
-</form>
+</form> {% endcomment %}
+
+<!DOCTYPE html>  
+<html lang="en">  
+
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Login</title>  
+
+    <!-- Bootstrap -->  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet" />  
+
+    <!-- Font Awesome -->  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />  
+
+    <!-- Google Fonts -->  
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />  
+
+    <!-- MDB -->  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.2.0/mdb.min.css" rel="stylesheet" />  
+
+    <style>  
+        .rounded-t-5 {  
+            border-top-left-radius: 0.5rem;  
+            border-top-right-radius: 0.5rem;  
+        }  
+
+        @media (min-width: 992px) {  
+            .rounded-tr-lg-0 {  
+                border-top-right-radius: 0;  
+            }  
+
+            .rounded-bl-lg-5 {  
+                border-bottom-left-radius: 0.5rem;  
+            }  
+        }  
+
+        button {  
+            width: 100%;  
+            height: 50px;  
+        }  
+    </style>  
+</head>  
+
+<body>  
+    <!-- Section: Design Block -->  
+    <section class="text-center text-lg-start">  
+        <div class="card mb-3">  
+            <div class="row g-0 d-flex align-items-center">  
+                <div class="col-lg-4 d-none d-lg-flex">  
+                    <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" alt="Trendy Pants and Shoes"  
+                        class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />  
+                </div>  
+                <div class="col-lg-8">  
+                    <div class="card-body py-5 px-md-5">  
+
+                        <!-- Display Django messages here -->  
+                        {% if messages %}  
+                            {% for message in messages %}  
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">  
+                                    {{ message }}  
+                                </div>  
+                            {% endfor %}  
+                        {% endif %}  
+
+                        <form method="post">  
+                            {% csrf_token %}  
+
+                            <!-- Username input -->  
+                            <div data-mdb-input-init class="form-outline mb-4">  
+                                <input type="text" id="form2Example1" class="form-control" name="username" required />  
+                                <label class="form-label" for="form2Example1">Username</label>  
+                            </div>  
+
+                            <!-- Password input -->  
+                            <div data-mdb-input-init class="form-outline mb-4">  
+                                <input type="password" id="form2Example2" class="form-control" name="password" required />  
+                                <label class="form-label" for="form2Example2">Password</label>  
+                            </div>  
+
+                            <!-- 2 column grid layout for inline styling -->  
+                            <div class="row mb-4">  
+                                <div class="col text-center">  
+                                    <a href="#!">Forgot password?</a>  
+                                </div>  
+                            </div>  
+
+                            <!-- Submit button -->  
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Login</button>  
+
+                        </form>  
+
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </section>  
+
+    <!-- MDB -->  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.2.0/mdb.umd.min.js"></script>  
+</body>  
+
+</html>
