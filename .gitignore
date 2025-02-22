@@ -16,3 +16,4 @@ __pycache__/
 *.sublime-workspace
 
 blog/static/img
+users/static/img
