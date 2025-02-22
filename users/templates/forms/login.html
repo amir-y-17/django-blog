@@ -1,31 +1,3 @@
-{% load static %}
-
-{% comment %} <h1>Login</h1>  
-
-<!-- نمایش پیام‌های ارسال شده از جنگو -->  
-{% if messages %}  
-    <ul class="messages">  
-        {% for message in messages %}  
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>  
-        {% endfor %}  
-    </ul>  
-{% endif %}  
-
-<!-- فرم لاگین -->  
-<form method="post">  
-    {% csrf_token %}  
-    {{ form.as_p }}  
-
-    <!-- نمایش خطاهای مرتبط با هر فیلد -->  
-    {% for field in form %}  
-        {% for error in field.errors %}  
-            <div class="error">{{ error }}</div>  
-        {% endfor %}  
-    {% endfor %}  
-
-    <button type="submit">Login</button>  
-</form> {% endcomment %}
-
 <!DOCTYPE html>  
 <html lang="en">  
 
