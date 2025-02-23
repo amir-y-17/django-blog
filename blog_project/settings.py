@@ -32,13 +32,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "users.apps.UsersConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "users.apps.UsersConfig",
     "blog.apps.BlogConfig",
     "comments.apps.CommentsConfig",
     "intractions.apps.IntractionsConfig",
@@ -135,3 +135,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Custom user model
 AUTH_USER_MODEL = "users.User"
+
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "tiamtestblog@gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = "gxotinjvweqeyipw"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
