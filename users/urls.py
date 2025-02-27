@@ -27,4 +27,5 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    path("peofile/", views.ProfileView.as_view(), name="profile"),
 ]

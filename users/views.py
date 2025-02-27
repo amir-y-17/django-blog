@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from .models import User
 from django.views import View
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 from .forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class UserRegisterationView(CreateView):
@@ -45,3 +46,9 @@ class UserLoginView(View):
         login(request, user)
         messages.success(request, "Welcome back! You have logged in successfully.")
         return redirect("blog:home")
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "users/profile.html"
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
