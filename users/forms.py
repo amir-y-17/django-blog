@@ -51,3 +51,33 @@ class UserLoginForm(forms.Form):
         if not User.objects.filter(username=username).exists():
             raise forms.ValidationError("The username does not exist.")
         return username
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "about_me",
+            "date_of_birth",
+            "profile_image",
+        ]
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+
+        if not username:
+            raise forms.ValidationError("Username is required!")
+
+        if len(username) < 4:
+            raise forms.ValidationError(
+                "The username must be at least 4 characters long!"
+            )
+
+        if User.objects.filter(username=username).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError("This username already exists!")
+
+        return username

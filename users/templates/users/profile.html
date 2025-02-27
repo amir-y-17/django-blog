@@ -23,12 +23,12 @@
                   </a>
                 </div>
             <div class="ms-4 mt-5 d-flex flex-column align-items-center" style="width: 150px;">
-                <img src="{{ user.profile_image.url }}"
+                <img src="{% if user.profile_image %} {{ user.profile_image.url }} {% else %} http://bootdey.com/img/Content/avatar/avatar1.png {% endif %}"
                 alt="Profile Picture" class="img-fluid img-thumbnail mt-4 mb-2 rounded-circle"
-                style="width: 150px; z-index: 1;">
-              <button type="button" class="btn btn-outline-light btn-sm" aria-label="Edit Profile" style="z-index: 1;">
-                Edit Profile
-              </button>
+                style="width: 150px; height: 150px; object-fit: cover; z-index: 1;">
+                <a href="{% url 'users:edit_profile' %}" class="btn btn-outline-light btn-sm" aria-label="Edit Profile">
+                  Edit Profile
+                </a>
             </div>
             <div class="ms-3" style="margin-bottom: 20px;">
               <h5>{{user.username}}</h5>
