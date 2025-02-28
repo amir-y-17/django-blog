@@ -3,10 +3,15 @@ from django.views import View
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UserRegistrationForm, UserLoginForm, UserEditForm
+from .forms import (
+    UserRegistrationForm,
+    UserLoginForm,
+    UserEditForm,
+    UserPasswordChangeForm,
+)
 
 
 class UserRegisterationView(CreateView):
@@ -71,3 +76,37 @@ class EditProfileView(View, LoginRequiredMixin):
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
             return render(request, "users/edit_profile.html", {"form": form})
+
+
+class UserPasswordChangeView(LoginRequiredMixin, View):
+    def post(self, request):
+        form = UserPasswordChangeForm(
+            user=request.user, data=request.POST
+        )  # Specify the user
+        if form.is_valid():
+            try:
+                user = form.save()
+                update_session_auth_hash(request, user)  # Keep the user logged in
+                messages.success(
+                    request, "Your password has been successfully changed."
+                )
+                return redirect("users:password_change_done")
+            except Exception as e:
+                messages.error(
+                    request,
+                    "An error occurred while changing your password. Please try again.",
+                )
+                return render(
+                    request, "registration/change_password.html", {"form": form}
+                )
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(
+                        request, f"{field}: {error}"
+                    )  # Display the error to the user
+            return render(request, "registration/change_password.html", {"form": form})
+
+    def get(self, request):
+        form = UserPasswordChangeForm(user=request.user)
+        return render(request, "registration/change_password.html", {"form": form})

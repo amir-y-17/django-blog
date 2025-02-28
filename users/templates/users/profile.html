@@ -15,7 +15,7 @@
               <!-- Header Section -->
               <header class="rounded-top text-white d-flex flex-row align-items-end" style="background-color: #000; height: 200px;">
                 <div class="position-absolute top-0 end-0 m-3 d-flex">
-                  <a href="#" class="btn btn-outline-light btn-sm me-2" aria-label="Change Password">
+                  <a href="{% url 'users:password_change' %}" class="btn btn-outline-light btn-sm me-2" aria-label="Change Password">
                   Change Password
                   </a>
                   <a href="{% url 'blog:home' %}" class="btn btn-outline-light btn-sm" aria-label="Home">

@@ -1,6 +1,6 @@
 from django import forms
 from .models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -81,3 +81,25 @@ class UserEditForm(forms.ModelForm):
             raise forms.ValidationError("This username already exists!")
 
         return username
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    def clean_old_password(self):
+        old_password = self.cleaned_data.get("old_password")
+        if not self.user.check_password(old_password):
+            raise forms.ValidationError(
+                "Your old password was entered incorrectly. Please enter it again."
+            )
+        return old_password
+
+    def clean_new_password2(self):
+        new_password1 = self.cleaned_data.get("new_password1")
+        new_password2 = self.cleaned_data.get("new_password2")
+
+        # Check if both new passwords match
+        if new_password1 and new_password2 and new_password1 != new_password2:
+            raise forms.ValidationError("The two password fields didn't match.")
+
+        # Optionally add more checks for password strength here
+
+        return new_password2

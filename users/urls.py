@@ -29,4 +29,16 @@ urlpatterns = [
     ),
     path("profile/", views.ProfileView.as_view(), name="profile"),
     path("edit-profile/", views.EditProfileView.as_view(), name="edit_profile"),
+    path(
+        "password-change/",
+        views.UserPasswordChangeView.as_view(),
+        name="password_change",
+    ),
+    path(
+        "password-change/done/",
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name="registration/change_password_done.html"
+        ),
+        name="password_change_done",
+    ),
 ]
