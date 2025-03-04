@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Category, Post, PostImage
-from django.views.generic import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CreateNewPostForm
-from django.urls import reverse_lazy
+from .models import Category, Post
 from django.contrib import messages
+from .forms import CreateNewPostForm
+from django.shortcuts import render, redirect
+from django.views.generic import View, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class CreateNewPostView(LoginRequiredMixin, View):
@@ -15,13 +14,6 @@ class CreateNewPostView(LoginRequiredMixin, View):
             post = form.save(commit=False)
             post.author = user
             post.save()
-
-            # Handle images
-            for image in ["image1", "image2"]:
-                img = form.cleaned_data.get(image)
-                if img:
-                    PostImage.objects.create(post=post, image=img)
-
             messages.success(request, "Post created successfully")
             return redirect("blog:home")
         else:
@@ -40,3 +32,9 @@ class CreateNewPostView(LoginRequiredMixin, View):
         return render(
             request, "blog/new_post.html", {"form": form, "categories": categories}
         )
+
+
+class PostListView(ListView):
+    model = Post
+    template_name = "blog/post_list.html"
+    context_object_name = "posts"

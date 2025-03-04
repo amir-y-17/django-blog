@@ -21,6 +21,7 @@ class Post(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
+    image = models.ImageField(upload_to="posts/images/", null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, related_name="posts", null=True
@@ -36,11 +37,3 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class PostImage(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_images")
-    image = models.ImageField(upload_to="posts/images/")
-
-    def __str__(self):
-        return f"image for : {self.post}"
