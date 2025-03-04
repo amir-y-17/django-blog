@@ -2,8 +2,8 @@ from .models import Category, Post
 from django.contrib import messages
 from .forms import CreateNewPostForm
 from django.shortcuts import render, redirect
-from django.views.generic import View, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import View, ListView, DetailView
 
 
 class CreateNewPostView(LoginRequiredMixin, View):
@@ -38,3 +38,9 @@ class PostListView(ListView):
     model = Post
     template_name = "blog/post_list.html"
     context_object_name = "posts"
+
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
+    context_object_name = "post"

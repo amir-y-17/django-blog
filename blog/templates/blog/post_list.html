@@ -20,7 +20,7 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-xl-9">
                 {% for post in posts %}
                 <div class="tm-blog-post">
-                    <h3 class="tm-gold-text"><a href="#">{{post.title}}</a></h3>
+                    <h3 class="tm-gold-text"><a href="{{post.get_absolute_url}}">{{post.title}}</a></h3>
                     <p>Author: <b>{{post.author}}</b></p>
                     <img src="{{post.image.url}}" alt="Image" class="img-fluid tm-img-post" style="max-width: 100%; height: auto; width: 100%; max-height: 450px; object-fit: cover;">
                     
