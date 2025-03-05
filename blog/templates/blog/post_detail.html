@@ -1,24 +1,122 @@
 {% extends 'parent/base/base.html' %}
+{% load static %}
 
 {% block title %} - {{post.title}}{% endblock title %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <h1 class="mb-3">{{ post.title }}</h1>
-            <p class="text-muted">By {{ post.author }} on {{ post.published_date }}</p>
-            {% if post.image %}
-                <div class="post-image mb-3">
-                    <img src="{{ post.image.url }}" class="img-fluid" alt="{{ post.title }}">
-                </div>
-            {% endif %}
-            <div class="content">
-                {{ post.content|safe }}
-            </div>
-            <hr>
-            <a href="{% url 'blog:post_list' %}" class="btn btn-primary">Back to Posts</a>
-        </div>
-    </div>
+
+<div class="container-fluid p-0">
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid w-100" style="height: 400px; object-fit: cover;">
 </div>
+
+<section class="tm-section">
+    <div class="container-fluid">
+        <div class="row tm-2-rows-sm-swap">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 tm-2-rows-sm-down-2">
+                
+                <h3 class="tm-gold-text">Post Categories</h3>
+                
+                <nav>
+                    <ul class="nav">
+                        {% for category in categories %}
+                        <li><a href="#" class="tm-text-link">{{category.name}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </nav>   
+
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 tm-2-rows-sm-down-1">
+                <h3 class="tm-gold-text">{{post.title}}</h3>
+                <p>{{post.description|linebreaks}}</p>
+                <hr>
+                <div class="post-info">
+                    <p><strong>Published on:</strong> {{ post.created_at }}</p>
+                    <p><strong>Category:</strong> <a href="#" class="tm-text-link">{{post.category}}</a></p>
+                    <p><strong>Likes:</strong> 120</p>
+                </div>
+
+                <div class="post-actions">
+                    <button class="btn btn-success" onclick="likePost({{ post.id }})">Like</button>
+                    <button class="btn btn-info" onclick="commentPost({{ post.id }})">Comment</button>
+                    <button class="btn btn-primary" onclick="sharePost({{ post.id }})">Share</button>
+                    <button class="btn btn-danger" onclick="savePost({{ post.id }})">Save</button>
+                </div>
+                <hr>
+                <script>
+                    function likePost(postId) {
+                        // Add your like post logic here
+                    }
+
+                    function commentPost(postId) {
+                        // Add your comment post logic here
+                    }
+
+                    function sharePost(postId) {
+                        // Add your share post logic here
+                    }
+
+                    function savePost(postId) {
+                        // Add your save post logic here
+                    }
+                </script>
+            </div>
+        </div>          
+
+        <div class="row tm-margin-t-mid">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+
+                <div class="tm-content-box">
+                    <img src="{% static 'img/tm-img-310x180-1.jpg' %}" alt="Image" class="tm-margin-b-30 img-fluid">
+                    <h4 class="tm-margin-b-20 tm-gold-text">Lorem ipsum dolor #1</h4>
+                    <p class="tm-margin-b-20">Aenean cursus tellus mauris, quis
+                    consequat mauris dapibus id. Donec
+                    scelerisque porttitor pharetra</p>
+                    <a href="#" class="tm-btn text-uppercase">Detail</a>    
+                </div>  
+
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+
+                <div class="tm-content-box">
+                    <img src="{% static 'img/tm-img-310x180-2.jpg' %}" alt="Image" class="tm-margin-b-30 img-fluid">
+                    <h4 class="tm-margin-b-20 tm-gold-text">Lorem ipsum dolor #2</h4>
+                    <p class="tm-margin-b-20">Aenean cursus tellus mauris, quis
+                    consequat mauris dapibus id. Donec
+                    scelerisque porttitor pharetra</p>
+                    <a href="#" class="tm-btn text-uppercase">Read More</a>    
+                </div>  
+
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+
+                <div class="tm-content-box">
+                    <img src="{% static 'img/tm-img-310x180-3.jpg' %}" alt="Image" class="tm-margin-b-30 img-fluid">
+                    <h4 class="tm-margin-b-20 tm-gold-text">Lorem ipsum dolor #3</h4>
+                    <p class="tm-margin-b-20">Aenean cursus tellus mauris, quis
+                    consequat mauris dapibus id. Donec
+                    scelerisque porttitor pharetra</p>
+                    <a href="#" class="tm-btn text-uppercase">Detail</a>    
+                </div>  
+
+            </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+
+                    <div class="tm-content-box tm-margin-b-30">
+                        <a href="#" class="tm-text-link"><h4 class="tm-margin-b-20 tm-thin-font">Duis sit amet tristique #1</h4></a>
+                        <p class="tm-margin-b-30">Vestibulum arcu erat, lobortis sit amet tellus ut, semper tristique nibh. Nunc in molestie elit.</p><hr>
+                    </div>
+                    <div class="tm-content-box">
+                        <a href="#" class="tm-text-link"><h4 class="tm-margin-b-20 tm-thin-font">Duis sit amet tristique #2</h4></a>
+                        <p>Vestibulum arcu erat, lobortis sit amet tellus ut, semper tristique nibh. Nunc in molestie elit.</p>
+                    </div>  
+
+                </div>
+        </div> <!-- row -->
+
+    </div>
+</section>
 {% endblock %}
