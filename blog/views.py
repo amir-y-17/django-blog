@@ -1,13 +1,13 @@
 from .models import Category, Post
 from django.contrib import messages
 from .forms import CreateNewPostForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View, ListView, DetailView
 
 
 class CreateNewPostView(LoginRequiredMixin, View):
-    def post(self, request, *args, **kwargs):
+    def post(self, request, **kwargs):
         form = CreateNewPostForm(request.POST, request.FILES)
         user = request.user
         if form.is_valid():
@@ -54,3 +54,37 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.all()
         return context
+
+
+class EditPostView(LoginRequiredMixin, View):
+    def post(self, request, **kwargs):
+        user = request.user
+        post_id = kwargs.get("pk")
+        post = get_object_or_404(Post, id=post_id, author=user)
+
+        form = CreateNewPostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Post updated successfully!")
+            return redirect("blog:post_detail", pk=post_id)
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+            return render(
+                request,
+                "blog/edit_post.html",
+                {"form": form, "categories": Category.objects.all(), "post": post},
+            )
+
+    def get(self, request, **kwargs):
+        user = request.user
+        post_id = kwargs.get("pk")
+        post = get_object_or_404(Post, id=post_id, author=user)
+        form = CreateNewPostForm(instance=post)
+        categories = Category.objects.all()
+        return render(
+            request,
+            "blog/edit_post.html",
+            {"form": form, "categories": categories, "post": post},
+        )
