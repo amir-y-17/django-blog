@@ -3,7 +3,16 @@ from django.contrib import messages
 from .forms import CreateNewPostForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View, ListView, DetailView
+from django.views.generic import View, ListView, DetailView, TemplateView
+
+
+class HomePageView(TemplateView):
+    template_name = "blog/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
 
 
 class CreateNewPostView(LoginRequiredMixin, View):

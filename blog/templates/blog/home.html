@@ -1,15 +1,14 @@
 {% extends 'parent/base/base.html' %}
 {% load static %}
+{% load blog_tags %}
 
 {% block title %}Home{% endblock title %}
-
-
 
 {% block content %}
     
     
-<div class="tm-home-img-container">
-    <img src="{% static 'img/tm-home-img.jpg' %}" alt="Image" class="hidden-lg-up img-fluid">
+<div class="container">
+    <img src="{% static 'img/eGJLHl.jpg' %}" alt="Image" class="hidden-lg-up img-fluid">
 </div>
 
 <section class="tm-section">
@@ -17,62 +16,12 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-xs-center">
                 <h2 class="tm-gold-text tm-title">Introduction</h2>
-                <p class="tm-subtitle">Suspendisse ut magna vel velit cursus tempor ut nec nunc. Mauris vehicula, augue in tincidunt porta, purus ipsum blandit massa.</p>
+                <p class="tm-subtitle">Welcome to our blog! Here, we explore the world of programming and technology with innovative ideas and exciting adventures. Let’s push the boundaries of creativity together!
+                </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-
-                <div class="tm-content-box">
-                    <img src="{% static 'img/tm-img-310x180-1.jpg' %}" alt="Image" class="tm-margin-b-20 img-fluid">
-                    <h4 class="tm-margin-b-20 tm-gold-text">Lorem ipsum dolor #1</h4>
-                    <p class="tm-margin-b-20">Aenean cursus tellus mauris, quis
-                    consequat mauris dapibus id. Donec
-                    scelerisque porttitor pharetra</p>
-                    <a href="#" class="tm-btn text-uppercase">Detail</a>    
-                </div>  
-
-            </div>
-
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-
-                <div class="tm-content-box">
-                    <img src="{% static 'img/tm-img-310x180-2.jpg' %}" alt="Image" class="tm-margin-b-20 img-fluid">
-                    <h4 class="tm-margin-b-20 tm-gold-text">Lorem ipsum dolor #2</h4>
-                    <p class="tm-margin-b-20">Aenean cursus tellus mauris, quis
-                    consequat mauris dapibus id. Donec
-                    scelerisque porttitor pharetra</p>
-                    <a href="#" class="tm-btn text-uppercase">Read More</a>    
-                </div>  
-
-            </div>
-
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-
-                <div class="tm-content-box">
-                    <img src="{% static 'img/tm-img-310x180-3.jpg' %}" alt="Image" class="tm-margin-b-20 img-fluid">
-                    <h4 class="tm-margin-b-20 tm-gold-text">Lorem ipsum dolor #3</h4>
-                    <p class="tm-margin-b-20">Aenean cursus tellus mauris, quis
-                    consequat mauris dapibus id. Donec
-                    scelerisque porttitor pharetra</p>
-                    <a href="#" class="tm-btn text-uppercase">Detail</a>    
-                </div>  
-
-            </div>
-
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-
-                <div class="tm-content-box">
-                    <img src="{% static 'img/tm-img-310x180-4.jpg' %}" alt="Image" class="tm-margin-b-20 img-fluid">
-                    <h4 class="tm-margin-b-20 tm-gold-text">Lorem ipsum dolor #4</h4>
-                    <p class="tm-margin-b-20">Aenean cursus tellus mauris, quis
-                    consequat mauris dapibus id. Donec
-                    scelerisque porttitor pharetra</p>
-                    <a href="#" class="tm-btn text-uppercase">Read More</a>    
-                </div>  
-
-            </div>
-        </div> <!-- row -->
+        
+        <!-- row -->
 
         <div class="row tm-margin-t-big">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
@@ -104,11 +53,9 @@
                                 </h3>
                                 <nav>
                                     <ul class="nav">
-                                        <li><a href="#" class="tm-text-link">Tincidunt non faucibus placerat</a></li>
-                                        <li><a href="#" class="tm-text-link">Vestibulum tempor ac lectus</a></li>
-                                        <li><a href="#" class="tm-text-link">Fusce non turpis euismod</a></li>
-                                        <li><a href="#" class="tm-text-link">Nam in augue consectetur</a></li>
-                                        <li><a href="#" class="tm-text-link">Text Link Color #006699</a></li>
+                                        {% for category in categories %}
+                                        <li><a href="#" class="tm-text-link">{{category.name}}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </nav>    
                             </div> <!-- col -->
@@ -131,40 +78,8 @@
                         
                         <div class="row tm-2-rows-md-down-1 tm-margin-t-mid">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <h3 class="tm-gold-text tm-title tm-margin-b-30">Related Posts</h3>
-                                <div class="media tm-related-post">
-                                  <div class="media-left media-middle">
-                                    <a href="#">
-                                      <img class="media-object" src="{% static 'img/tm-img-240x120-1.jpg' %}" alt="Generic placeholder image">
-                                    </a>
-                                  </div>
-                                  <div class="media-body">
-                                    <a href="#"><h4 class="media-heading tm-gold-text tm-margin-b-15">Lorem ipsum dolor</h4></a>
-                                    <p class="tm-small-font tm-media-description">Aenean cursus tellus mauris, quis consequat mauris dapibus id. Donec scelerisque porttitor pharetra.</p>
-                                  </div>
-                                </div>
-                                <div class="media tm-related-post">
-                                  <div class="media-left media-middle">
-                                    <a href="#">
-                                      <img class="media-object" src="{% static 'img/tm-img-240x120-2.jpg' %}" alt="Generic placeholder image">
-                                    </a>
-                                  </div>
-                                  <div class="media-body">
-                                    <a href="#"><h4 class="media-heading tm-gold-text tm-margin-b-15">Lorem ipsum dolor</h4></a>
-                                    <p class="tm-small-font tm-media-description">Aenean cursus tellus mauris, quis consequat mauris dapibus id. Donec scelerisque porttitor pharetra.</p>
-                                  </div>
-                                </div>
-                                <div class="media tm-related-post">
-                                  <div class="media-left media-middle">
-                                    <a href="#">
-                                      <img class="media-object" src="{% static 'img/tm-img-240x120-3.jpg' %}" alt="Generic placeholder image">
-                                    </a>
-                                  </div>
-                                  <div class="media-body">
-                                    <a href="#"><h4 class="media-heading tm-gold-text tm-margin-b-15">Lorem ipsum dolor</h4></a>
-                                    <p class="tm-small-font tm-media-description">Aenean cursus tellus mauris, quis consequat mauris dapibus id. Donec scelerisque porttitor pharetra.</p>
-                                  </div>
-                                </div>
+                                <h3 class="tm-gold-text tm-title tm-margin-b-30">Latest Posts</h3>
+                                {% latest_posts 3 %}
                             </div>
                         </div>    
                     </div>
