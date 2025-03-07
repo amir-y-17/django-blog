@@ -88,3 +88,13 @@ class EditPostView(LoginRequiredMixin, View):
             "blog/edit_post.html",
             {"form": form, "categories": categories, "post": post},
         )
+
+
+class DeletePostView(LoginRequiredMixin, View):
+    def post(self, request, **kwargs):
+        user = request.user
+        post_id = kwargs.get("pk")
+        post = get_object_or_404(Post, id=post_id, author=user)
+        post.delete()
+        messages.success(request, "Post deleted successfully!")
+        return redirect("users:profile")
