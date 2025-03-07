@@ -1,4 +1,5 @@
 from .models import User
+from blog.models import Post
 from django.views import View
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -56,7 +57,11 @@ class UserLoginView(View):
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "users/profile.html"
     login_url = "users:login"
-    redirect_field_name = "redirect_to"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["recent_posts"] = Post.objects.filter(author=self.request.user)[:4]
+        return context
 
 
 class EditProfileView(View, LoginRequiredMixin):
@@ -110,3 +115,13 @@ class UserPasswordChangeView(LoginRequiredMixin, View):
     def get(self, request):
         form = UserPasswordChangeForm(user=request.user)
         return render(request, "registration/change_password.html", {"form": form})
+
+
+class MyPostsPageView(TemplateView, LoginRequiredMixin):
+    template_name = "users/posts_page.html"
+    login_url = "users:login"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
+        return context
