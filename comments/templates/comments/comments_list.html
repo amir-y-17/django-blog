@@ -22,13 +22,13 @@
             {% for comment in comments %}
                 <div class="list-group-item">
                     <h5 class="mb-1">{{ comment.author }}</h5>
-                    <p class="mb-1">{{ comment.content }}</p>
+                    <p class="mb-1">{{ comment.content|linebreaks }}</p>
                     <small>{{ comment.created_at }}</small>
                 </div>
                 {% if request.user == comment.author %}
                     <div class="post-actions">
                         <a class="btn btn-primary btn-sm" href="{% url 'comments:edit_comment' comment.id %}">Edit</a>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <a class="btn btn-danger btn-sm" href="{% url 'comments:delete_comment' comment.id %}">Delete</a>
                     </div>
                 {% endif %}
 

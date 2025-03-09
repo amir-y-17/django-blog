@@ -4,7 +4,7 @@ from users.models import User
 from .forms import CommentForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View, TemplateView, ListView
+from django.views.generic import View, TemplateView, DeleteView
 from django.shortcuts import render, redirect, get_object_or_404
 
 
@@ -78,3 +78,9 @@ class EditCommentView(LoginRequiredMixin, View):
         return render(
             request, "comments/edit_comment.html", {"form": form, "comment": comment}
         )
+
+
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = "comments/comment_confirm_delete.html"
+    success_url = "/blog/home/"
