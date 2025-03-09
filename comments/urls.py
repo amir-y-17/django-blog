@@ -13,4 +13,9 @@ urlpatterns = [
         views.CommentsListView.as_view(),
         name="all_comments",
     ),
+    path(
+        "edit-comment/<int:comment_id>/",
+        views.EditCommentView.as_view(),
+        name="edit_comment",
+    ),
 ]

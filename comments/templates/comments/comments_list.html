@@ -25,6 +25,13 @@
                     <p class="mb-1">{{ comment.content }}</p>
                     <small>{{ comment.created_at }}</small>
                 </div>
+                {% if request.user == comment.author %}
+                    <div class="post-actions">
+                        <a class="btn btn-primary btn-sm" href="{% url 'comments:edit_comment' comment.id %}">Edit</a>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </div>
+                {% endif %}
+
             {% endfor %}
         </div>
     </div>

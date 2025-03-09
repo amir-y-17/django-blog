@@ -28,10 +28,11 @@ class NewCommentView(LoginRequiredMixin, View):
         post = get_object_or_404(Post, id=kwargs.get("pk"))
         form = CommentForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data
-            Comment.objects.create(
-                post=post, author=request.user, content=cd["content"]
-            )
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+
             messages.success(request, "Your comment has been posted successfully.")
             return redirect("comments:all_comments", pk=kwargs.get("pk"))
         else:
@@ -41,3 +42,39 @@ class NewCommentView(LoginRequiredMixin, View):
             return render(
                 request, "comments/new_comment.html", {"form": form, "post": post}
             )
+
+
+class EditCommentView(LoginRequiredMixin, View):
+    login_url = "users:login"
+
+    def post(self, request, **kwargs):
+        comment = get_object_or_404(Comment, id=kwargs.get("comment_id"))
+        if comment.author != request.user:
+            messages.error(request, "You do not have permission to edit this comment.")
+            return redirect("comments:all_comments", pk=comment.post.id)
+
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your comment has been updated successfully.")
+            return redirect("comments:all_comments", pk=comment.post.id)
+        else:
+            messages.error(
+                request, "There was an error updating your comment. Please try again."
+            )
+            return render(
+                request,
+                "comments/edit_comment.html",
+                {"form": form, "comment": comment},
+            )
+
+    def get(self, request, **kwargs):
+        comment = get_object_or_404(Comment, id=kwargs.get("comment_id"))
+        if comment.author != request.user:
+            messages.error(request, "You do not have permission to edit this comment.")
+            return redirect("comments:all_comments", pk=comment.post.id)
+
+        form = CommentForm(instance=comment)
+        return render(
+            request, "comments/edit_comment.html", {"form": form, "comment": comment}
+        )
