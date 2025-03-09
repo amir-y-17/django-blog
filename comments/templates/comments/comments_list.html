@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h3>Add a new comment</h3>
+        <form method="post" action="{% url 'comments:new_comment' post.id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="content">Comment</label>
+                <textarea class="form-control" id="content" name="content" rows="3" placeholder="Enter your comment here" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <h2 class="mt-5">{{comments.count}} Comments</h2>
+        <div class="list-group mb-4">
+            {% for comment in comments %}
+                <div class="list-group-item">
+                    <h5 class="mb-1">{{ comment.author }}</h5>
+                    <p class="mb-1">{{ comment.content }}</p>
+                    <small>{{ comment.created_at }}</small>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

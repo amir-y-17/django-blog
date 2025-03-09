@@ -34,11 +34,12 @@
                     <p><strong>Published on:</strong> {{ post.created_at }}</p>
                     <p><strong>Category:</strong> <a href="#" class="tm-text-link">{{post.category}}</a></p>
                     <p><strong>Likes:</strong> 120</p>
+                    <p><strong>Comments:</strong> {{post.comments.count}}</p>
                 </div>
 
                 <div class="post-actions">
                     <button class="btn btn-success" onclick="likePost({{ post.id }})">Like</button>
-                    <button class="btn btn-info" onclick="commentPost({{ post.id }})">Comment</button>
+                    <a class="btn btn-info" href="{% url 'comments:all_comments' post.id %}">Comment</a>
                     <button class="btn btn-primary" onclick="sharePost({{ post.id }})">Share</button>
                     <button class="btn btn-danger" onclick="savePost({{ post.id }})">Save</button>
                 </div>
