@@ -42,4 +42,5 @@ urlpatterns = [
         name="password_change_done",
     ),
     path("my-posts/", views.MyPostsPageView.as_view(), name="my_posts_page"),
+    path("my-saved-posts/", views.MySavedPostsPageView.as_view(), name="saved_posts"),
 ]

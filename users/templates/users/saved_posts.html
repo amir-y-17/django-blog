@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Posts</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Saved Posts</h1>
+        <div class="row">
+            {% for s_post in saved_posts %}
+            <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if s_post.post.image %}
+                <img src="{{ s_post.post.image.url }}" class="card-img-top" alt="{{ s_post.post.title }}" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                <h5 class="card-title">{{ s_post.post.title }}</h5>
+                <p class="card-text" style="height: 100px;">{{ s_post.post.description | truncatewords:20 }}</p>
+                <a href="{{ s_post.post.get_absolute_url }}" class="btn btn-primary">Read More</a>
+                </div>
+                <div class="card-footer text-muted">
+                Author: {{ s_post.post.author }}
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if not saved_posts %}
+            <p class="text-muted">You have no saved posts.</p>
+        {% endif %}
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

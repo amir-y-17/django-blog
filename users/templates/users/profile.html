@@ -14,12 +14,15 @@
             <div class="card">
               <!-- Header Section -->
               <header class="rounded-top text-white d-flex flex-row align-items-end" style="background-color: #000; height: 200px;">
-                <div class="position-absolute top-0 end-0 m-3 d-flex">
-                  <a href="{% url 'users:password_change' %}" class="btn btn-outline-light btn-sm me-2" aria-label="Change Password">
-                  Change Password
+                <div class="position-absolute top-0 end-0 m-3 d-flex gap-2">
+                  <a href="{% url 'users:saved_posts' %}" class="btn btn-light btn-sm" aria-label="Saved">
+                  <i class="bi bi-bookmark"></i> Saved
                   </a>
-                  <a href="{% url 'blog:home' %}" class="btn btn-outline-light btn-sm" aria-label="Home">
-                  Home
+                  <a href="{% url 'users:password_change' %}" class="btn btn-light btn-sm" aria-label="Change Password">
+                  <i class="bi bi-lock"></i> Change Password
+                  </a>
+                  <a href="{% url 'blog:home' %}" class="btn btn-light btn-sm" aria-label="Home">
+                  <i class="bi bi-house"></i> Home
                   </a>
                 </div>
             <div class="ms-4 mt-5 d-flex flex-column align-items-center" style="width: 150px;">
