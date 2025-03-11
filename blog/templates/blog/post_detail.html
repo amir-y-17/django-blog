@@ -42,7 +42,7 @@
                     
                     <button class="btn btn-success" id="like-button" {% if not user.is_authenticated %}disabled{% endif %}>Like</button>
                     <button class="btn btn-primary" {% if not user.is_authenticated %}disabled{% endif %}>Share</button>
-                    <button class="btn btn-danger" {% if not user.is_authenticated %}disabled{% endif %}>Save</button>
+                    <button class="btn btn-danger" id="save-button" {% if not user.is_authenticated %}disabled{% endif %}>Save</button>
                 </div>
                 <hr>
             </div>
@@ -127,6 +127,25 @@
                                 button.text("Like");
                             }
                             $("#likes-count").text(data.likes_count);
+                        }
+                    },
+                });
+            });
+
+            $("#save-button").click(function(){
+                var postId = $(this).closest("#post").data("post-id");
+                var button = $(this);
+                var csrfToken = "{{ csrf_token }}";
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'intractions:save_post' post.id %}",
+                    data: {"post_id": postId, "csrfmiddlewaretoken": csrfToken},
+                    success: function(data){
+                        if (data.saved) {
+                            button.text("Unsave");
+                        } else {
+                            button.text("Save");
                         }
                     },
                 });
